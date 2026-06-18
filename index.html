@@ -7,8 +7,10 @@
   <meta name="description" content="Truck navigation that updates in real time, stays truck-legal on every reroute, and never requires a restart. Built by a CDL driver. Coming 2026." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" /></noscript>
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" rel="stylesheet" /></noscript>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -19,19 +21,16 @@
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
-
-    /* NAV */
     .cp-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 18px 40px;
-      border-bottom: 0.5px solid rgba(255,255,255,0.08);
-      position: sticky;
-      top: 0;
+      border-bottom: 1px solid #1A1D22;
       background: #0D0F12;
-      z-index: 100;
     }
     .cp-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: #F0EDE8; text-decoration: none; }
     .cp-logo span { color: #E8960C; }
@@ -45,11 +44,7 @@
       font-weight: 700;
       cursor: pointer;
       font-family: inherit;
-      transition: opacity 0.15s;
     }
-    .cp-nav-cta:hover { opacity: 0.88; }
-
-    /* HERO */
     .cp-hero {
       padding: 90px 40px 80px;
       max-width: 760px;
@@ -80,29 +75,28 @@
       max-width: 540px;
       margin: 0 auto 40px;
     }
-    .cp-form {
+    .cp-signup-form {
       display: flex;
       gap: 10px;
       max-width: 460px;
       margin: 0 auto 14px;
       flex-wrap: wrap;
     }
-    .cp-form input {
+    .cp-signup-form input[type="email"] {
       flex: 1;
       min-width: 200px;
       background: #1A1D22;
-      border: 0.5px solid rgba(255,255,255,0.12);
+      border: 1px solid #2A2D32;
       border-radius: 6px;
       padding: 13px 16px;
       font-size: 15px;
       color: #F0EDE8;
       outline: none;
       font-family: inherit;
-      transition: border-color 0.15s;
     }
-    .cp-form input::placeholder { color: #555; }
-    .cp-form input:focus { border-color: #E8960C; }
-    .cp-form button {
+    .cp-signup-form input[type="email"]::placeholder { color: #555; }
+    .cp-signup-form input[type="email"]:focus { border-color: #E8960C; }
+    .cp-signup-form button {
       background: #E8960C;
       color: #0D0F12;
       border: none;
@@ -113,15 +107,9 @@
       cursor: pointer;
       white-space: nowrap;
       font-family: inherit;
-      transition: opacity 0.15s;
     }
-    .cp-form button:hover { opacity: 0.88; }
     .cp-disclaimer { font-size: 12px; color: #555; text-align: center; }
-
-    /* DIVIDER */
-    .cp-divider { height: 0.5px; background: rgba(255,255,255,0.06); margin: 0 40px; }
-
-    /* SECTIONS */
+    .cp-divider { height: 1px; background: #1A1D22; margin: 0 40px; }
     .cp-section { padding: 60px 40px; max-width: 900px; margin: 0 auto; }
     .cp-section-label {
       font-size: 11px;
@@ -132,14 +120,12 @@
       margin-bottom: 28px;
       text-align: center;
     }
-
-    /* TRUST GRID */
     .cp-trust-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1px;
-      background: rgba(255,255,255,0.06);
-      border: 0.5px solid rgba(255,255,255,0.06);
+      background: #1A1D22;
+      border: 1px solid #1A1D22;
       border-radius: 12px;
       overflow: hidden;
     }
@@ -147,8 +133,6 @@
     .cp-trust-icon { font-size: 22px; color: #E8960C; margin-bottom: 14px; }
     .cp-trust-title { font-size: 14px; font-weight: 600; color: #F0EDE8; margin-bottom: 8px; }
     .cp-trust-body { font-size: 13px; color: #6A6660; line-height: 1.65; }
-
-    /* PROBLEMS */
     .cp-h2 {
       font-size: 34px;
       font-weight: 800;
@@ -170,14 +154,14 @@
       align-items: flex-start;
       gap: 14px;
       padding: 22px 0;
-      border-bottom: 0.5px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid #161819;
     }
     .cp-problem-row:last-child { border-bottom: none; }
     .cp-badge-bad {
       font-size: 11px;
       font-weight: 700;
-      color: #C0392B;
-      background: rgba(192,57,43,0.12);
+      color: #E05545;
+      background: #1F1210;
       padding: 3px 9px;
       border-radius: 4px;
       white-space: nowrap;
@@ -190,7 +174,7 @@
       font-size: 11px;
       font-weight: 700;
       color: #E8960C;
-      background: rgba(232,150,12,0.12);
+      background: #1E1608;
       padding: 3px 9px;
       border-radius: 4px;
       white-space: nowrap;
@@ -201,8 +185,6 @@
     .cp-arr { color: #333; font-size: 16px; margin-top: 4px; flex-shrink: 0; }
     .cp-problem-title { font-size: 14px; font-weight: 600; color: #F0EDE8; margin-bottom: 5px; }
     .cp-problem-desc { font-size: 13px; color: #6A6660; line-height: 1.6; }
-
-    /* PRICING */
     .cp-pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -211,11 +193,11 @@
     }
     .cp-price-card {
       background: #111417;
-      border: 0.5px solid rgba(255,255,255,0.08);
+      border: 1px solid #1E2125;
       border-radius: 12px;
       padding: 28px 24px;
     }
-    .cp-price-card.featured { border: 1.5px solid #E8960C; }
+    .cp-price-card.featured { border: 2px solid #E8960C; }
     .cp-price-tier {
       font-size: 11px;
       font-weight: 700;
@@ -237,8 +219,6 @@
     .cp-price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .cp-price-features li { font-size: 13px; color: #9A9690; display: flex; align-items: center; gap: 9px; }
     .cp-price-features li i { color: #E8960C; font-size: 15px; flex-shrink: 0; }
-
-    /* STORY */
     .cp-story-section {
       padding: 60px 40px;
       max-width: 660px;
@@ -254,12 +234,10 @@
     }
     .cp-story-attr { font-size: 12px; color: #555; }
     .cp-story-attr strong { color: #E8960C; font-style: normal; }
-
-    /* FEEDBACK */
     .cp-feedback-section { padding: 40px 40px 20px; max-width: 660px; margin: 0 auto; }
     .cp-feedback-card {
       background: #111417;
-      border: 0.5px solid rgba(255,255,255,0.08);
+      border: 1px solid #1E2125;
       border-radius: 12px;
       padding: 28px 24px;
     }
@@ -268,7 +246,7 @@
     .cp-feedback-card textarea {
       width: 100%;
       background: #0D0F12;
-      border: 0.5px solid rgba(255,255,255,0.08);
+      border: 1px solid #1E2125;
       border-radius: 6px;
       padding: 12px 14px;
       font-size: 14px;
@@ -277,14 +255,13 @@
       min-height: 100px;
       outline: none;
       font-family: inherit;
-      transition: border-color 0.15s;
     }
     .cp-feedback-card textarea::placeholder { color: #444; }
     .cp-feedback-card textarea:focus { border-color: #E8960C; }
     .cp-fb-btn {
       margin-top: 12px;
-      background: transparent;
-      border: 0.5px solid #E8960C;
+      background: #0D0F12;
+      border: 1px solid #E8960C;
       color: #E8960C;
       padding: 10px 20px;
       border-radius: 6px;
@@ -292,22 +269,15 @@
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
-      transition: background 0.15s;
     }
-    .cp-fb-btn:hover { background: rgba(232,150,12,0.08); }
-    .cp-fb-thanks { display: none; margin-top: 14px; font-size: 13px; color: #27AE60; font-weight: 600; }
-
-    /* FOOTER */
     .cp-footer {
       padding: 32px 40px;
-      border-top: 0.5px solid rgba(255,255,255,0.05);
+      border-top: 1px solid #1A1D22;
       text-align: center;
       margin-top: 20px;
     }
     .cp-footer p { font-size: 12px; color: #444; }
     .cp-footer strong { color: #E8960C; }
-
-    /* RESPONSIVE */
     @media (max-width: 640px) {
       .cp-nav { padding: 16px 20px; }
       .cp-hero { padding: 60px 20px 50px; }
@@ -333,11 +303,13 @@
     <div class="cp-eyebrow">Built by a trucker. For truckers.</div>
     <h1 class="cp-h1">Navigation that <em>keeps moving</em> when construction doesn't</h1>
     <p class="cp-hero-sub">Your current app freezes, fails to reroute, and forces you to grab your phone mid-drive. Clearpath updates in real time, stays truck-legal on every reroute, and never requires a restart to keep working.</p>
-    <div class="cp-form">
-      <input type="email" id="cp-email" placeholder="your@email.com" autocomplete="email" />
-      <button onclick="handleSignup()">Notify me at launch</button>
-    </div>
-    <p class="cp-disclaimer" id="cp-disclaimer">No spam. No paywall surprises. Unsubscribe anytime.</p>
+    <form class="cp-signup-form" action="https://formspree.io/f/xaqzzzgl" method="POST">
+      <input type="hidden" name="form_type" value="early_access_signup" />
+      <input type="hidden" name="_subject" value="New Clearpath Early Access Signup" />
+      <input type="email" id="cp-email" name="email" placeholder="your@email.com" autocomplete="email" required />
+      <button type="submit">Notify me at launch</button>
+    </form>
+    <p class="cp-disclaimer">No spam. No paywall surprises. Unsubscribe anytime.</p>
   </section>
 
   <div class="cp-divider"></div>
@@ -369,7 +341,6 @@
     <h2 class="cp-h2">What every other app gets wrong</h2>
     <p class="cp-h2-sub">Confirmed across thousands of driver reviews on the App Store, Play Store, TruckersReport.com, and BBB records.</p>
     <div class="cp-problem-list">
-
       <div class="cp-problem-row">
         <span class="cp-badge-bad">Them</span>
         <i class="ti ti-arrow-right cp-arr" aria-hidden="true"></i>
@@ -379,7 +350,6 @@
           <div class="cp-problem-desc">Exit closed for weeks. App shows you driving straight at it. No reroute. You're reaching for your phone at highway speed just to restart navigation and re-enter your destination. Clearpath recalculates automatically — no restart, no re-entry, no hands on the phone.</div>
         </div>
       </div>
-
       <div class="cp-problem-row">
         <span class="cp-badge-bad">Them</span>
         <i class="ti ti-arrow-right cp-arr" aria-hidden="true"></i>
@@ -389,7 +359,6 @@
           <div class="cp-problem-desc">Construction that's been there for weeks isn't on the map. The app routes you directly into a closure and waits for you to notice. Clearpath pulls live Waze incident data continuously — closures from an hour ago are already on your map.</div>
         </div>
       </div>
-
       <div class="cp-problem-row">
         <span class="cp-badge-bad">Them</span>
         <i class="ti ti-arrow-right cp-arr" aria-hidden="true"></i>
@@ -399,7 +368,6 @@
           <div class="cp-problem-desc">When current apps can't find a truck route they silently fall back to car routing. Clearpath never does this — no truck route means a loud warning, not a dangerous detour down streets your trailer doesn't fit on.</div>
         </div>
       </div>
-
       <div class="cp-problem-row">
         <span class="cp-badge-bad">Them</span>
         <i class="ti ti-arrow-right cp-arr" aria-hidden="true"></i>
@@ -409,7 +377,6 @@
           <div class="cp-problem-desc">CoPilot charges $119/year for vehicle profile enforcement then routes drivers under low bridges anyway. In Clearpath, your height, weight, and length govern every route and every reroute — no exceptions, no edge cases.</div>
         </div>
       </div>
-
       <div class="cp-problem-row">
         <span class="cp-badge-bad">Them</span>
         <i class="ti ti-arrow-right cp-arr" aria-hidden="true"></i>
@@ -419,7 +386,6 @@
           <div class="cp-problem-desc">Trucker's Path locks your entire screen pushing upgrades while you're moving. That's not an annoyance — it's a safety hazard. Clearpath navigation is never interrupted. The screen belongs to the road.</div>
         </div>
       </div>
-
       <div class="cp-problem-row">
         <span class="cp-badge-bad">Them</span>
         <i class="ti ti-arrow-right cp-arr" aria-hidden="true"></i>
@@ -429,7 +395,6 @@
           <div class="cp-problem-desc">BBB records show repeated unauthorized charges from Trucker's Path after cancellation — the company never responded to a single complaint. Clearpath: one tap to cancel, confirmed immediately, no further charges. Full stop.</div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -482,43 +447,19 @@
     <div class="cp-feedback-card">
       <div class="cp-feedback-title">What does your current app get wrong?</div>
       <div class="cp-feedback-sub">Every response goes directly to the person building this. Your input shapes what Clearpath does on day one.</div>
-      <textarea id="cp-feedback-text" placeholder="The biggest frustration I have with current nav apps is..."></textarea>
-      <br>
-      <button class="cp-fb-btn" onclick="handleFeedback()">Send feedback</button>
-      <div class="cp-fb-thanks" id="cp-fb-thanks">Got it — thank you. This goes directly into the product.</div>
+      <form action="https://formspree.io/f/xaqzzzgl" method="POST">
+        <input type="hidden" name="form_type" value="driver_feedback" />
+        <input type="hidden" name="_subject" value="Clearpath Driver Feedback" />
+        <textarea name="message" placeholder="The biggest frustration I have with current nav apps is..." required></textarea>
+        <br>
+        <button type="submit" class="cp-fb-btn">Send feedback</button>
+      </form>
     </div>
   </section>
 
   <footer class="cp-footer">
     <p><strong>Clearpath</strong> &nbsp;·&nbsp; Built by a trucker, for truckers &nbsp;·&nbsp; Coming 2026</p>
   </footer>
-
-  <script>
-    function handleSignup() {
-      var email = document.getElementById('cp-email').value.trim();
-      if (!email || !email.includes('@') || !email.includes('.')) {
-        document.getElementById('cp-email').style.borderColor = '#C0392B';
-        return;
-      }
-      document.getElementById('cp-email').style.borderColor = '#27AE60';
-      var btn = document.querySelector('.cp-form button');
-      btn.textContent = "You're on the list";
-      btn.style.background = '#27AE60';
-      btn.style.opacity = '1';
-      btn.disabled = true;
-      document.getElementById('cp-disclaimer').textContent = "We'll reach out when Clearpath is ready for beta. Thank you.";
-    }
-    document.getElementById('cp-email').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') handleSignup();
-    });
-    function handleFeedback() {
-      var txt = document.getElementById('cp-feedback-text').value.trim();
-      if (!txt) return;
-      document.getElementById('cp-feedback-text').value = '';
-      document.getElementById('cp-fb-thanks').style.display = 'block';
-      document.querySelector('.cp-fb-btn').style.display = 'none';
-    }
-  </script>
 
 </body>
 </html>
