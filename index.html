@@ -108,7 +108,9 @@
       white-space: nowrap;
       font-family: inherit;
     }
+    .cp-signup-form button:disabled { background: #27AE60; cursor: default; }
     .cp-disclaimer { font-size: 12px; color: #555; text-align: center; }
+    .cp-signup-success { display: none; font-size: 14px; color: #27AE60; font-weight: 600; text-align: center; margin-top: 10px; }
     .cp-divider { height: 1px; background: #1A1D22; margin: 0 40px; }
     .cp-section { padding: 60px 40px; max-width: 900px; margin: 0 auto; }
     .cp-section-label {
@@ -270,6 +272,7 @@
       cursor: pointer;
       font-family: inherit;
     }
+    .cp-fb-thanks { display: none; margin-top: 14px; font-size: 13px; color: #27AE60; font-weight: 600; }
     .cp-footer {
       padding: 32px 40px;
       border-top: 1px solid #1A1D22;
@@ -303,13 +306,17 @@
     <div class="cp-eyebrow">Built by a trucker. For truckers.</div>
     <h1 class="cp-h1">Navigation that <em>keeps moving</em> when construction doesn't</h1>
     <p class="cp-hero-sub">Your current app freezes, fails to reroute, and forces you to grab your phone mid-drive. Clearpath updates in real time, stays truck-legal on every reroute, and never requires a restart to keep working.</p>
-    <form class="cp-signup-form" action="https://formspree.io/f/xaqzzzgl" method="POST">
-      <input type="hidden" name="form_type" value="early_access_signup" />
-      <input type="hidden" name="_subject" value="New Clearpath Early Access Signup" />
+
+    <form class="cp-signup-form" id="signup-form">
+      <input type="hidden" name="access_key" value="ba049ebf-a684-4544-b978-49467fa6bbc4" />
+      <input type="hidden" name="subject" value="New Clearpath Early Access Signup" />
+      <input type="hidden" name="from_name" value="Clearpath Landing Page" />
+      <input type="hidden" name="botcheck" value="" style="display:none" />
       <input type="email" id="cp-email" name="email" placeholder="your@email.com" autocomplete="email" required />
-      <button type="submit">Notify me at launch</button>
+      <button type="submit" id="signup-btn">Notify me at launch</button>
     </form>
-    <p class="cp-disclaimer">No spam. No paywall surprises. Unsubscribe anytime.</p>
+    <p class="cp-disclaimer" id="cp-disclaimer">No spam. No paywall surprises. Unsubscribe anytime.</p>
+    <p class="cp-signup-success" id="signup-success">You're on the list — we'll reach out when Clearpath is ready for beta.</p>
   </section>
 
   <div class="cp-divider"></div>
@@ -447,19 +454,60 @@
     <div class="cp-feedback-card">
       <div class="cp-feedback-title">What does your current app get wrong?</div>
       <div class="cp-feedback-sub">Every response goes directly to the person building this. Your input shapes what Clearpath does on day one.</div>
-      <form action="https://formspree.io/f/xaqzzzgl" method="POST">
-        <input type="hidden" name="form_type" value="driver_feedback" />
-        <input type="hidden" name="_subject" value="Clearpath Driver Feedback" />
+      <form id="feedback-form">
+        <input type="hidden" name="access_key" value="ba049ebf-a684-4544-b978-49467fa6bbc4" />
+        <input type="hidden" name="subject" value="Clearpath Driver Feedback" />
+        <input type="hidden" name="from_name" value="Clearpath Feedback Form" />
+        <input type="hidden" name="botcheck" value="" style="display:none" />
         <textarea name="message" placeholder="The biggest frustration I have with current nav apps is..." required></textarea>
         <br>
         <button type="submit" class="cp-fb-btn">Send feedback</button>
       </form>
+      <div class="cp-fb-thanks" id="cp-fb-thanks">Got it — thank you. This goes directly into the product.</div>
     </div>
   </section>
 
   <footer class="cp-footer">
     <p><strong>Clearpath</strong> &nbsp;·&nbsp; Built by a trucker, for truckers &nbsp;·&nbsp; Coming 2026</p>
   </footer>
+
+  <script>
+    var signupForm = document.getElementById('signup-form');
+    signupForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var data = new FormData(signupForm);
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      }).then(function(res) {
+        if (res.ok) {
+          document.getElementById('signup-btn').textContent = "You're on the list";
+          document.getElementById('signup-btn').disabled = true;
+          document.getElementById('cp-disclaimer').style.display = 'none';
+          document.getElementById('signup-success').style.display = 'block';
+        }
+      }).catch(function() {
+        alert('Something went wrong. Please try again.');
+      });
+    });
+
+    var feedbackForm = document.getElementById('feedback-form');
+    feedbackForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var data = new FormData(feedbackForm);
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      }).then(function(res) {
+        if (res.ok) {
+          feedbackForm.style.display = 'none';
+          document.getElementById('cp-fb-thanks').style.display = 'block';
+        }
+      }).catch(function() {
+        alert('Something went wrong. Please try again.');
+      });
+    });
+  </script>
 
 </body>
 </html>
