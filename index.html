@@ -313,6 +313,7 @@
       <input type="hidden" name="from_name" value="Clearpath Landing Page" />
       <input type="hidden" name="botcheck" value="" style="display:none" />
       <input type="email" id="cp-email" name="email" placeholder="your@email.com" autocomplete="email" required />
+      <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
       <button type="submit" id="signup-btn">Notify me at launch</button>
     </form>
     <p class="cp-disclaimer" id="cp-disclaimer">No spam. No paywall surprises. Unsubscribe anytime.</p>
@@ -461,6 +462,7 @@
         <input type="hidden" name="botcheck" value="" style="display:none" />
         <textarea name="message" placeholder="The biggest frustration I have with current nav apps is..." required></textarea>
         <br>
+        <div class="h-captcha" data-captcha="true" data-theme="dark"></div>
         <button type="submit" class="cp-fb-btn">Send feedback</button>
       </form>
       <div class="cp-fb-thanks" id="cp-fb-thanks">Got it — thank you. This goes directly into the product.</div>
@@ -509,5 +511,6 @@
     });
   </script>
 
+<script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>
